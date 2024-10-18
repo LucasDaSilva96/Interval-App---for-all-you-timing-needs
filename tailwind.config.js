@@ -13,6 +13,28 @@ export default {
         yellow: '#F2C94C',
         lightRed: '#EB5757',
       },
+      keyframes: {
+        borderAni: {
+          '0%': {
+            opacity: 0.5,
+            transform: 'scale(1)',
+            boxShadow: '0 0 0 0 rgba(0, 0, 0, 0.7)',
+          },
+          '50%': {
+            opacity: 1,
+            transform: 'scale(1.1)',
+            boxShadow: '0 0 0 8px #333333',
+          },
+          '100%': {
+            opacity: 0.5,
+            transform: 'scale(1)',
+            boxShadow: '0 0 0 0 rgba(0, 0, 0, 0.7)',
+          },
+        },
+      },
+      animation: {
+        borderAni: 'borderAni 2s linear infinite',
+      },
     },
   },
   plugins: [],
