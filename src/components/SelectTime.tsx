@@ -1,16 +1,15 @@
-import { useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
+import { useTimerSettingsStore } from '../stores/timerSettings.store';
 
 export default function SelectMinutes() {
-  const [minutes, setMinutes] = useState(5);
+  const { decrement, increment, minutes } = useTimerSettingsStore();
 
   const handleIncrement = () => {
-    setMinutes((prev) => prev + 5);
+    increment();
   };
 
   const handleDecrement = () => {
-    if (minutes === 5 || minutes - 5 < 5) return;
-    setMinutes((prev) => prev - 5);
+    decrement();
   };
 
   return (
@@ -22,7 +21,7 @@ export default function SelectMinutes() {
       >
         <FaChevronLeft size={36} />
       </button>
-      <div className='flex flex-col gap-0.5 items-center'>
+      <div className='flex flex-col gap-1 items-center'>
         <span className='text-6xl font-bold'>{minutes}</span>
         <span className='opacity-60'>minutes</span>
       </div>
