@@ -43,7 +43,7 @@ export default function Nav() {
         </nav>
       </header>
       <aside
-        className={`fixed inset-0 text-white bg-black backdrop-blur-md flex items-center justify-center transition-all ease-linear duration-300 ${
+        className={`fixed inset-0 text-white bg-grey backdrop-blur-md flex items-center justify-center transition-all ease-linear duration-300 ${
           isNavOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
