@@ -7,6 +7,8 @@ const timer = new Timer();
 
 interface TimerState {
   time: string;
+  minutesLeft: number;
+  secondsLeft: number;
   isRunning: boolean;
   isPaused: boolean;
   startTimer: (duration: number) => void;
@@ -21,11 +23,17 @@ export const useTimerStore = create<TimerState>((set) => ({
   time: '00:00:00',
   isRunning: false,
   isPaused: false,
+  minutesLeft: 0,
+  secondsLeft: 0,
   startTimer: (duration: number) => {
     timer.start({ countdown: true, startValues: { minutes: duration } });
     set({ isRunning: true });
     timer.addEventListener('secondsUpdated', () => {
-      set({ time: timer.getTimeValues().toString() });
+      set({
+        time: timer.getTimeValues().toString(),
+        minutesLeft: timer.getTimeValues().minutes,
+        secondsLeft: timer.getTimeValues().seconds,
+      });
     });
     timer.addEventListener('targetAchieved', () => {
       set({ isRunning: false });

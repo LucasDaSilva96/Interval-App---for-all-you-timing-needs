@@ -1,12 +1,31 @@
 import { Link } from 'react-router-dom';
 import { useNavStore } from '../stores/nav.store';
 import { RiMenuFold4Fill, RiMenuFold3Fill } from 'react-icons/ri';
+import { CiPause1, CiPlay1 } from 'react-icons/ci';
+import { useTimerStore } from '../stores/timer.store';
 
 export default function Nav() {
   const { isNavOpen, toggleNav } = useNavStore();
+  const { isPaused, pauseTimer, resumeTimer } = useTimerStore();
   return (
     <>
-      <header className='w-full min-h-12 relative'>
+      <header className='w-full min-h-12 relative flex items-center'>
+        <div className='flex-1 flex items-center justify-center'>
+          {isPaused ? (
+            <CiPlay1
+              onClick={resumeTimer}
+              size={32}
+              className='cursor-pointer text-white'
+            />
+          ) : (
+            <CiPause1
+              onClick={pauseTimer}
+              size={32}
+              className='cursor-pointer text-white'
+            />
+          )}
+        </div>
+
         <nav className='absolute top-0 left-0 z-50 text-white'>
           {isNavOpen ? (
             <RiMenuFold3Fill
