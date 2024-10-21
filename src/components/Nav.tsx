@@ -6,24 +6,24 @@ import { useTimerStore } from '../stores/timer.store';
 
 export default function Nav() {
   const { isNavOpen, toggleNav } = useNavStore();
-  const { isPaused, pauseTimer, resumeTimer } = useTimerStore();
+  const { isPaused, pauseTimer, resumeTimer, isDone } = useTimerStore();
   return (
-    <>
+    <div className='z-50'>
       <header className='w-full min-h-12 relative flex items-center'>
         <div className='flex-1 flex items-center justify-center'>
-          {isPaused ? (
+          {isPaused && !isDone ? (
             <CiPlay1
               onClick={resumeTimer}
               size={32}
               className='cursor-pointer text-white'
             />
-          ) : (
+          ) : !isDone ? (
             <CiPause1
               onClick={pauseTimer}
               size={32}
               className='cursor-pointer text-white'
             />
-          )}
+          ) : null}
         </div>
 
         <nav className='absolute top-0 left-0 z-50 text-white'>
@@ -62,6 +62,6 @@ export default function Nav() {
           </Link>
         </div>
       </aside>
-    </>
+    </div>
   );
 }

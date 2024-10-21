@@ -7,10 +7,12 @@ const timer = new Timer();
 
 interface TimerState {
   time: string;
+  startValue: number;
   minutesLeft: number;
   secondsLeft: number;
   isRunning: boolean;
   isPaused: boolean;
+  isDone: boolean;
   startTimer: (duration: number) => void;
   stopTimer: () => void;
   resetTimer: () => void;
@@ -21,11 +23,14 @@ interface TimerState {
 
 export const useTimerStore = create<TimerState>((set) => ({
   time: '00:00:00',
+  startValue: 0,
   isRunning: false,
   isPaused: false,
   minutesLeft: 0,
   secondsLeft: 0,
+  isDone: false,
   startTimer: (duration: number) => {
+    set({ startValue: duration });
     timer.start({ countdown: true, startValues: { minutes: duration } });
     set({ isRunning: true });
     timer.addEventListener('secondsUpdated', () => {
@@ -33,6 +38,9 @@ export const useTimerStore = create<TimerState>((set) => ({
         time: timer.getTimeValues().toString(),
         minutesLeft: timer.getTimeValues().minutes,
         secondsLeft: timer.getTimeValues().seconds,
+        isDone:
+          timer.getTimeValues().minutes === 0 &&
+          timer.getTimeValues().seconds === 0,
       });
     });
     timer.addEventListener('targetAchieved', () => {
