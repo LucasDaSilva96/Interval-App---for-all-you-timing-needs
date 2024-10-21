@@ -11,6 +11,7 @@ import Analog from './components/Timers/Analog.tsx';
 import Digital from './components/Timers/Digital.tsx';
 import Visual from './components/Timers/Visual.tsx';
 import LevelUp from './components/Timers/LevelUpTimer.tsx';
+import IntervalPage from './pages/IntervalPage.tsx';
 
 // This is the main entry point of the app
 const router = createBrowserRouter([
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
   {
     path: '/alarm',
     element: <AlarmPage />,
+  },
+  {
+    path: '/interval',
+    element: <IntervalPage />,
   },
   {
     path: '*',

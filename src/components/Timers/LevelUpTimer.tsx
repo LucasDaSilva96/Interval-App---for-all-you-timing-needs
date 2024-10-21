@@ -1,3 +1,3 @@
 export default function LevelUp() {
-  return <div>LevelUp Timer</div>;
+  return <div className=''>LevelUp Timer</div>;
 }

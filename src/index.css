@@ -145,3 +145,7 @@ body {
 .day {
   top: 200px;
 }
+
+.gradient-bg {
+  background-image: radial-gradient(circle, #333333, #2f2f2f, #2b2b2b, #282828, #242424, #212121, #1e1e1e, #1b1b1b, #181818, #161616, #131313, #0f0f0f);
+}
