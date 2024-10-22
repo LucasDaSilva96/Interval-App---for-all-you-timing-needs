@@ -5,7 +5,7 @@ import { displayDigitalTime } from '../services/displayDigitalTime';
 // Initialize the timer
 const timer = new Timer();
 
-interface TimerState {
+export interface TimerState {
   time: string;
   startValue: number;
   minutesLeft: number;
@@ -22,7 +22,7 @@ interface TimerState {
 }
 
 export const useTimerStore = create<TimerState>((set) => ({
-  time: '00:00:00',
+  time: '00:00',
   startValue: 0,
   isRunning: false,
   isPaused: false,
@@ -44,12 +44,19 @@ export const useTimerStore = create<TimerState>((set) => ({
       });
     });
     timer.addEventListener('targetAchieved', () => {
-      set({ isRunning: false });
+      set({ isRunning: false, isDone: true });
     });
   },
   stopTimer: () => {
     timer.stop();
-    set({ isRunning: false });
+    set({
+      isRunning: false,
+      time: '00:00',
+      isDone: false,
+      isPaused: false,
+      minutesLeft: 0,
+      secondsLeft: 0,
+    });
   },
   resetTimer: () => {
     timer.reset();

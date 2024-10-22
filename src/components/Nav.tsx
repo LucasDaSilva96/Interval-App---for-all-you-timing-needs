@@ -1,14 +1,22 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useNavStore } from '../stores/nav.store';
 import { RiMenuFold4Fill, RiMenuFold3Fill } from 'react-icons/ri';
 import { CiPause1, CiPlay1 } from 'react-icons/ci';
+import { GoListOrdered } from 'react-icons/go';
 import { useTimerStore } from '../stores/timer.store';
 import { useSelectedViewStore } from '../stores/selectedView.store';
+import { useTimerSettingsStore } from '../stores/timerSettings.store';
+import { useEffect } from 'react';
 
 export default function Nav() {
   const { setSelectedView } = useSelectedViewStore();
   const { isNavOpen, toggleNav } = useNavStore();
-  const { isPaused, pauseTimer, resumeTimer, isDone } = useTimerStore();
+  const { isPaused, pauseTimer, resumeTimer, isDone, stopTimer } =
+    useTimerStore();
+  const { hasBreak, hasInterval, interval_rounds, incrementIntervalRound } =
+    useTimerSettingsStore();
+
+  const navigate = useNavigate();
 
   const handleViewChange = (
     view: '/timer' | '/timer/digital' | '/timer/visual' | '/timer/levelUp'
@@ -17,23 +25,50 @@ export default function Nav() {
     toggleNav();
   };
 
+  useEffect(() => {
+    if (isDone) {
+      if (hasInterval) {
+        incrementIntervalRound();
+        if (hasBreak) {
+          stopTimer();
+          return navigate('/interval');
+        }
+      }
+    }
+  }, [isDone, hasInterval, hasBreak]);
+
   return (
     <div className='z-50'>
       <header className='w-full min-h-12 relative flex items-center'>
-        <div className='flex-1 flex items-center justify-center'>
+        <div className='flex-1 flex items-center justify-around'>
           {isPaused && !isDone ? (
-            <CiPlay1
-              onClick={resumeTimer}
-              size={32}
-              className='cursor-pointer text-white'
-            />
-          ) : !isDone ? (
-            <CiPause1
-              onClick={pauseTimer}
-              size={32}
-              className='cursor-pointer text-white'
-            />
+            <div className='flex items-center gap-1'>
+              <CiPlay1
+                onClick={resumeTimer}
+                size={32}
+                className='cursor-pointer text-white'
+              />
+              <span className='text-white'>Paused</span>
+            </div>
+          ) : !isDone && !isPaused ? (
+            <div className='flex items-center gap-1'>
+              <CiPause1
+                onClick={pauseTimer}
+                size={32}
+                className='cursor-pointer text-white'
+              />
+              <span className='text-white animate-pulse'>Running</span>
+            </div>
           ) : null}
+          {hasInterval && (
+            <div className='flex items-center gap-1'>
+              <GoListOrdered
+                className='text-white justify-self-end'
+                size={32}
+              />
+              <span className='text-xl'>{interval_rounds}</span>
+            </div>
+          )}
         </div>
 
         <nav className='absolute top-0 left-0 z-50 text-white'>

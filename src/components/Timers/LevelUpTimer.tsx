@@ -1,24 +1,31 @@
 import { useEffect, useState } from 'react';
 import { useTimerStore } from '../../stores/timer.store';
 import { calTimeProgress } from '../../services/calcProgress';
+import { useTimerSettingsStore } from '../../stores/timerSettings.store';
+
+const initialState = {
+  ring_1: false,
+  ring_2: false,
+  ring_3: false,
+  ring_4: false,
+  ring_5: false,
+  ring_6: false,
+  ring_7: false,
+  ring_8: false,
+  ring_9: false,
+  ring_10: false,
+};
 
 export default function LevelUp() {
-  const { startValue, minutesLeft, secondsLeft, isRunning } = useTimerStore();
-  const [progress, setProgress] = useState({
-    ring_1: false,
-    ring_2: false,
-    ring_3: false,
-    ring_4: false,
-    ring_5: false,
-    ring_6: false,
-    ring_7: false,
-    ring_8: false,
-    ring_9: false,
-    ring_10: false,
-  });
+  const { startValue, minutesLeft, secondsLeft, isRunning, isDone } =
+    useTimerStore();
+  const [progress, setProgress] = useState(initialState);
+  const { hasBreak, hasInterval } = useTimerSettingsStore();
 
   useEffect(() => {
     const timeLeft = calTimeProgress(minutesLeft, secondsLeft, startValue);
+
+    if (isDone && hasInterval && !hasBreak) return setProgress(initialState);
 
     if (timeLeft <= 10) {
       setProgress({ ...progress, ring_1: true });

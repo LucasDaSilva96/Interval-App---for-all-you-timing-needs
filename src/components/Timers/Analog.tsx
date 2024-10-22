@@ -61,8 +61,12 @@ export default function Analog() {
   return (
     <div className='clock' ref={clockEl}>
       <div>
-        <div className='info date text-black'>
-          <p className='font-thin'>Interval: 0</p>
+        <div className='info date text-black flex items-center justify-center'>
+          <img
+            src='/icons/rolex-logo.svg'
+            alt='Rolex logo'
+            className='max-w-16 h-auto'
+          />
         </div>
         <div className='info day'>
           {isDone ? (
