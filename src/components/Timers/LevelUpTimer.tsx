@@ -26,6 +26,7 @@ export default function LevelUp() {
     setPercentage(calTimeProgress(minutesLeft, secondsLeft, startValue));
   }, [minutesLeft, secondsLeft, startValue]);
 
+  // TODO - fix the progress when the timer is reset or renewed
   useEffect(() => {
     if (percentage === 100) return;
     if (percentage <= 10) {

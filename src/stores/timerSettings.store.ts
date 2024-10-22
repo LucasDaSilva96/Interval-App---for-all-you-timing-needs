@@ -13,6 +13,7 @@ type Action = {
   setHasInterval: (value: boolean) => void;
   setHasBreak: (value: boolean) => void;
   incrementIntervalRound: () => void;
+  resetIntervalRound: () => void;
 };
 
 // This is a store that manages the timer settings in the main app page.
@@ -30,4 +31,5 @@ export const useTimerSettingsStore = create<State & Action>((set) => ({
   setHasBreak: (value) => set({ hasBreak: value }),
   incrementIntervalRound: () =>
     set((state) => ({ interval_rounds: state.interval_rounds + 1 })),
+  resetIntervalRound: () => set({ interval_rounds: 0 }),
 }));

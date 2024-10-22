@@ -13,8 +13,15 @@ import { useEffect } from 'react';
 export default function Nav() {
   const { setSelectedView } = useSelectedViewStore();
   const { isNavOpen, toggleNav } = useNavStore();
-  const { isPaused, pauseTimer, resumeTimer, isDone, stopTimer } =
-    useTimerStore();
+  const {
+    isPaused,
+    pauseTimer,
+    resumeTimer,
+    isDone,
+    stopTimer,
+    startValue,
+    startTimer,
+  } = useTimerStore();
   const { hasBreak, hasInterval, interval_rounds, incrementIntervalRound } =
     useTimerSettingsStore();
 
@@ -57,12 +64,16 @@ export default function Nav() {
     })();
   }, [isNavOpen]);
 
+  // TODO - Refactor this to a custom hook
   useEffect(() => {
     if (isDone) {
       if (hasInterval) {
         incrementIntervalRound();
+        stopTimer();
+        if (!hasBreak) {
+          startTimer(startValue);
+        }
         if (hasBreak) {
-          stopTimer();
           setTimeout(() => {
             return navigate('/interval');
           }, 300);

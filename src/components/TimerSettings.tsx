@@ -6,8 +6,14 @@ import { AnimatePresence, motion } from 'framer-motion';
 import SelectMinutes from './SelectTime';
 
 export default function TimerSettings() {
-  const { hasBreak, hasInterval, setHasBreak, setHasInterval, minutes } =
-    useTimerSettingsStore();
+  const {
+    hasBreak,
+    hasInterval,
+    setHasBreak,
+    setHasInterval,
+    minutes,
+    resetIntervalRound,
+  } = useTimerSettingsStore();
   const { startTimer } = useTimerStore();
   const { setSelectedView } = useSelectedViewStore();
 
@@ -24,6 +30,7 @@ export default function TimerSettings() {
 
   const handleStartTimer = () => {
     setSelectedView('/timer');
+    resetIntervalRound();
     setTimeout(() => {
       startTimer(minutes);
     }, 100);

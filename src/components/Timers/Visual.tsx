@@ -15,7 +15,7 @@ export default function Visual() {
         delay: 0.4,
       }}
       exit={{ x: '200%' }}
-      className='w-full flex items-center justify-center p-2'
+      className='w-full flex items-center justify-center p-2 text-center'
     >
       {
         <h1 className='text-3xl uppercase font-semibold'>
