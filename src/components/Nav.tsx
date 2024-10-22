@@ -31,8 +31,12 @@ export default function Nav() {
         incrementIntervalRound();
         if (hasBreak) {
           stopTimer();
-          return navigate('/interval');
+          setTimeout(() => {
+            return navigate('/interval');
+          }, 300);
         }
+      } else {
+        return navigate('/alarm');
       }
     }
   }, [isDone, hasInterval, hasBreak]);

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTimerStore } from '../../stores/timer.store';
 import { calTimeProgress } from '../../services/calcProgress';
-import { useTimerSettingsStore } from '../../stores/timerSettings.store';
 
 const initialState = {
   ring_1: false,
@@ -17,23 +16,24 @@ const initialState = {
 };
 
 export default function LevelUp() {
-  const { startValue, minutesLeft, secondsLeft, isRunning, isDone } =
-    useTimerStore();
+  const { startValue, minutesLeft, secondsLeft, isRunning } = useTimerStore();
   const [progress, setProgress] = useState(initialState);
-  const { hasBreak, hasInterval } = useTimerSettingsStore();
+
+  const [percentage, setPercentage] = useState(0);
 
   useEffect(() => {
-    const timeLeft = calTimeProgress(minutesLeft, secondsLeft, startValue);
+    setPercentage(calTimeProgress(minutesLeft, secondsLeft, startValue));
+  }, [minutesLeft, secondsLeft, startValue]);
 
-    if (isDone && hasInterval && !hasBreak) return setProgress(initialState);
-
-    if (timeLeft <= 10) {
+  useEffect(() => {
+    if (percentage === 100) return;
+    if (percentage <= 10) {
       setProgress({ ...progress, ring_1: true });
-    } else if (timeLeft <= 20) {
+    } else if (percentage <= 20) {
       setProgress({ ...progress, ring_1: true, ring_2: true });
-    } else if (timeLeft <= 30) {
+    } else if (percentage <= 30) {
       setProgress({ ...progress, ring_1: true, ring_2: true, ring_3: true });
-    } else if (timeLeft <= 40) {
+    } else if (percentage <= 40) {
       setProgress({
         ...progress,
         ring_1: true,
@@ -41,7 +41,7 @@ export default function LevelUp() {
         ring_3: true,
         ring_4: true,
       });
-    } else if (timeLeft <= 50) {
+    } else if (percentage <= 50) {
       setProgress({
         ...progress,
         ring_1: true,
@@ -50,7 +50,7 @@ export default function LevelUp() {
         ring_4: true,
         ring_5: true,
       });
-    } else if (timeLeft <= 60) {
+    } else if (percentage <= 60) {
       setProgress({
         ...progress,
         ring_1: true,
@@ -60,7 +60,7 @@ export default function LevelUp() {
         ring_5: true,
         ring_6: true,
       });
-    } else if (timeLeft <= 70) {
+    } else if (percentage <= 70) {
       setProgress({
         ...progress,
         ring_1: true,
@@ -71,7 +71,7 @@ export default function LevelUp() {
         ring_6: true,
         ring_7: true,
       });
-    } else if (timeLeft <= 80) {
+    } else if (percentage <= 80) {
       setProgress({
         ...progress,
         ring_1: true,
@@ -83,7 +83,7 @@ export default function LevelUp() {
         ring_7: true,
         ring_8: true,
       });
-    } else if (timeLeft <= 90) {
+    } else if (percentage <= 90) {
       setProgress({
         ...progress,
         ring_1: true,
@@ -96,7 +96,7 @@ export default function LevelUp() {
         ring_8: true,
         ring_9: true,
       });
-    } else if (timeLeft <= 100) {
+    } else if (percentage <= 100) {
       setProgress({
         ...progress,
         ring_1: true,
@@ -111,7 +111,7 @@ export default function LevelUp() {
         ring_10: true,
       });
     }
-  }, [minutesLeft, secondsLeft, startValue]);
+  }, [percentage]);
 
   return (
     <section className='w-full flex items-center justify-center'>

@@ -14,22 +14,22 @@ interface TimerBreakState {
   isDone: boolean;
   startBreakTimer: (duration: number) => void;
   stopTimer: () => void;
+  setIsDone: (value: boolean) => void;
 }
 
 export const useBreakStore = create<TimerBreakState>((set) => ({
-  time: '00:00',
+  time: '05:00',
   startValue: 5,
   isRunning: false,
   minutesLeft: 0,
   secondsLeft: 0,
   isDone: false,
-  startBreakTimer: (duration = 5) => {
-    set({ startValue: duration });
+  startBreakTimer: (duration: number) => {
+    set({ startValue: duration, isRunning: true, isDone: false });
     timer.start({
       countdown: true,
       startValues: { minutes: duration, seconds: 0 },
     });
-    set({ isRunning: true });
     timer.addEventListener('secondsUpdated', () => {
       set({
         time: displayDigitalTime(
@@ -51,4 +51,5 @@ export const useBreakStore = create<TimerBreakState>((set) => ({
     timer.stop();
     set({ isRunning: false, isDone: false });
   },
+  setIsDone: (value) => set({ isDone: value }),
 }));

@@ -14,7 +14,7 @@ body {
   border-radius: 50%;
   border: 14px solid #333;
   position: relative;
-  box-shadow: 0 1vw 6vw -1vw rgba(146, 146, 146, 0.8);
+  box-shadow: 0 1vw 6vw -1vw rgba(146, 146, 146, 0.507);
 }
 
 .dot {

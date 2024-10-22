@@ -32,7 +32,7 @@ export const useTimerStore = create<TimerState>((set) => ({
   startTimer: (duration: number) => {
     set({ startValue: duration });
     timer.start({ countdown: true, startValues: { minutes: duration } });
-    set({ isRunning: true });
+    set({ isRunning: true, isDone: false });
     timer.addEventListener('secondsUpdated', () => {
       set({
         time: timer.getTimeValues().toString(),
@@ -60,7 +60,7 @@ export const useTimerStore = create<TimerState>((set) => ({
   },
   resetTimer: () => {
     timer.reset();
-    set({ time: '00:00:00', isRunning: false });
+    set({ time: '00:00', isRunning: false });
   },
   pauseTimer: () => {
     timer.pause();

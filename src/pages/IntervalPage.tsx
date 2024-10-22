@@ -7,22 +7,33 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function IntervalPage() {
-  const { isDone, isRunning, time, startBreakTimer } = useBreakStore();
+  const { isDone, isRunning, time, startBreakTimer, stopTimer, setIsDone } =
+    useBreakStore();
   const { selectedView } = useSelectedViewStore();
   const { startTimer, startValue } = useTimerStore();
 
   const navigate = useNavigate();
 
+  const handleClick = () => {
+    setIsDone(true);
+  };
+
   useEffect(() => {
-    startBreakTimer(1);
+    stopTimer();
+    startBreakTimer(5);
   }, []);
 
   useEffect(() => {
     if (isDone) {
+      stopTimer();
+
       startTimer(startValue);
-      return navigate(selectedView);
+
+      setTimeout(() => {
+        return navigate(selectedView);
+      }, 300);
     }
-  }, [isDone]);
+  }, [isDone, startTimer, startValue, stopTimer, navigate, selectedView]);
 
   return (
     <section className='w-full h-screen bg-black overflow-clip relative flex flex-col items-center justify-center'>
@@ -31,7 +42,10 @@ export default function IntervalPage() {
         <CiPause1 size={64} className='text-white' />
         <h1 className='text-4xl capitalize animate-pulse'>Pause & breath</h1>
         <p className='opacity-70'>{time}</p>
-        <button className='absolute bottom-5 bg-transparent rounded-md p-2  border-[2px] opacity-55 md:hover:opacity-100 transition-all active:opacity-100'>
+        <button
+          onClick={handleClick}
+          className='absolute bottom-5 bg-transparent rounded-md p-2  border-[2px] opacity-55 md:hover:opacity-100 transition-all active:opacity-100'
+        >
           NO PAUSE, GO NOW!
         </button>
       </div>
