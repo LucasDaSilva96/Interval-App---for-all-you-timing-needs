@@ -3,10 +3,20 @@ import { useNavStore } from '../stores/nav.store';
 import { RiMenuFold4Fill, RiMenuFold3Fill } from 'react-icons/ri';
 import { CiPause1, CiPlay1 } from 'react-icons/ci';
 import { useTimerStore } from '../stores/timer.store';
+import { useSelectedViewStore } from '../stores/selectedView.store';
 
 export default function Nav() {
+  const { setSelectedView } = useSelectedViewStore();
   const { isNavOpen, toggleNav } = useNavStore();
   const { isPaused, pauseTimer, resumeTimer, isDone } = useTimerStore();
+
+  const handleViewChange = (
+    view: '/timer' | '/timer/digital' | '/timer/visual' | '/timer/levelUp'
+  ) => {
+    setSelectedView(view);
+    toggleNav();
+  };
+
   return (
     <div className='z-50'>
       <header className='w-full min-h-12 relative flex items-center'>
@@ -48,16 +58,16 @@ export default function Nav() {
         }`}
       >
         <div className='w-full flex flex-col text-xl font-semibold items-center justify-center gap-12'>
-          <Link onClick={toggleNav} to='/timer'>
+          <Link onClick={() => handleViewChange('/timer')} to='/timer'>
             ANALOG TIMER
           </Link>
-          <Link onClick={toggleNav} to='digital'>
+          <Link onClick={() => handleViewChange('/timer/digital')} to='digital'>
             DIGITAL TIMER
           </Link>
-          <Link onClick={toggleNav} to='visual'>
+          <Link onClick={() => handleViewChange('/timer/visual')} to='visual'>
             VISUAL TIMER
           </Link>
-          <Link onClick={toggleNav} to='levelUp'>
+          <Link onClick={() => handleViewChange('/timer/levelUp')} to='levelUp'>
             CIRCLES
           </Link>
         </div>

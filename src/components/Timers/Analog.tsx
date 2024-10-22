@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTimerStore } from '../../stores/timer.store';
 import { displayDigitalTime } from '../../services/displayDigitalTime';
-import { calcRotation } from '../../services/calcRotation';
+import { calTimeProgress } from '../../services/calcProgress';
 
 export default function Analog() {
   const { minutesLeft, secondsLeft, startValue, isDone } = useTimerStore();
@@ -25,11 +25,35 @@ export default function Analog() {
     }
 
     if (!minuteHandEl.current || !secondHandEl.current) return;
+    let rotationOfMinuteHand = 0;
 
-    minuteHandEl.current.style.transform = `rotate(${calcRotation(
-      startValue,
-      minutesLeft
-    )}deg`;
+    if (calTimeProgress(minutesLeft, secondsLeft, startValue) <= 10) {
+      rotationOfMinuteHand = 3.6;
+    } else if (calTimeProgress(minutesLeft, secondsLeft, startValue) <= 20) {
+      rotationOfMinuteHand = 7.2;
+    } else if (calTimeProgress(minutesLeft, secondsLeft, startValue) <= 30) {
+      rotationOfMinuteHand = 10.8;
+    } else if (calTimeProgress(minutesLeft, secondsLeft, startValue) <= 40) {
+      rotationOfMinuteHand = 14.4;
+    } else if (calTimeProgress(minutesLeft, secondsLeft, startValue) <= 50) {
+      rotationOfMinuteHand = 18;
+    } else if (calTimeProgress(minutesLeft, secondsLeft, startValue) <= 60) {
+      rotationOfMinuteHand = 21.6;
+    } else if (calTimeProgress(minutesLeft, secondsLeft, startValue) <= 70) {
+      rotationOfMinuteHand = 25.2;
+    } else if (calTimeProgress(minutesLeft, secondsLeft, startValue) <= 80) {
+      rotationOfMinuteHand = 28.8;
+    } else if (calTimeProgress(minutesLeft, secondsLeft, startValue) <= 90) {
+      rotationOfMinuteHand = 32.4;
+    } else if (calTimeProgress(minutesLeft, secondsLeft, startValue) <= 95) {
+      rotationOfMinuteHand = 34.2;
+    } else if (calTimeProgress(minutesLeft, secondsLeft, startValue) <= 100) {
+      rotationOfMinuteHand = 36;
+    }
+
+    minuteHandEl.current.style.transform = `rotate(${
+      rotationOfMinuteHand * 10
+    }deg`;
 
     secondHandEl.current.style.transform = `rotate(-${secondsLeft * 6}deg`;
   }, [minutesLeft, secondsLeft, hasCreatedDialLines, startValue]);
