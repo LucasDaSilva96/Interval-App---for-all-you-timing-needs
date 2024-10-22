@@ -6,6 +6,8 @@ import { GoListOrdered } from 'react-icons/go';
 import { useTimerStore } from '../stores/timer.store';
 import { useSelectedViewStore } from '../stores/selectedView.store';
 import { useTimerSettingsStore } from '../stores/timerSettings.store';
+import { stagger } from 'framer-motion';
+import { animate } from 'framer-motion/dom';
 import { useEffect } from 'react';
 
 export default function Nav() {
@@ -24,6 +26,36 @@ export default function Nav() {
     setSelectedView(view);
     toggleNav();
   };
+
+  useEffect(() => {
+    const elements = document.querySelectorAll<HTMLAnchorElement>('.nav-link');
+    if (!elements) return;
+    (async () => {
+      if (!isNavOpen) {
+        await animate(
+          elements,
+          { x: '-100%', opacity: 0, scale: 0.5 },
+          {
+            delay: stagger(0.1),
+            ease: 'easeInOut',
+            type: 'spring',
+            duration: 0.5,
+          }
+        );
+      } else {
+        await animate(
+          elements,
+          { x: 0, opacity: 1, scale: 1 },
+          {
+            delay: stagger(0.25),
+            ease: 'linear',
+            type: 'spring',
+            duration: 0.8,
+          }
+        );
+      }
+    })();
+  }, [isNavOpen]);
 
   useEffect(() => {
     if (isDone) {
@@ -75,7 +107,7 @@ export default function Nav() {
           )}
         </div>
 
-        <nav className='absolute top-0 left-0 z-50 text-white'>
+        <nav className='absolute top-2 left-0 z-50 text-white'>
           {isNavOpen ? (
             <RiMenuFold3Fill
               onClick={toggleNav}
@@ -92,21 +124,37 @@ export default function Nav() {
         </nav>
       </header>
       <aside
-        className={`fixed inset-0 text-white bg-grey backdrop-blur-md flex items-center justify-center transition-all ease-linear duration-300 ${
+        className={`absolute inset-0 text-white bg-grey flex items-center justify-center transition-all ease-in duration-500 ${
           isNavOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         <div className='w-full flex flex-col text-xl font-semibold items-center justify-center gap-12'>
-          <Link onClick={() => handleViewChange('/timer')} to='/timer'>
+          <Link
+            className='nav-link md:hover:underline active:underline'
+            onClick={() => handleViewChange('/timer')}
+            to='/timer'
+          >
             ANALOG TIMER
           </Link>
-          <Link onClick={() => handleViewChange('/timer/digital')} to='digital'>
+          <Link
+            className='nav-link md:hover:underline active:underline'
+            onClick={() => handleViewChange('/timer/digital')}
+            to='digital'
+          >
             DIGITAL TIMER
           </Link>
-          <Link onClick={() => handleViewChange('/timer/visual')} to='visual'>
+          <Link
+            className='nav-link md:hover:underline active:underline'
+            onClick={() => handleViewChange('/timer/visual')}
+            to='visual'
+          >
             VISUAL TIMER
           </Link>
-          <Link onClick={() => handleViewChange('/timer/levelUp')} to='levelUp'>
+          <Link
+            className='nav-link md:hover:underline active:underline'
+            onClick={() => handleViewChange('/timer/levelUp')}
+            to='levelUp'
+          >
             CIRCLES
           </Link>
         </div>

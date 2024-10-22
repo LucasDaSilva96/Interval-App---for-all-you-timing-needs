@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTimerStore } from '../../stores/timer.store';
 import { calTimeProgress } from '../../services/calcProgress';
+import { motion } from 'framer-motion';
 
 const initialState = {
   ring_1: false,
@@ -114,7 +115,18 @@ export default function LevelUp() {
   }, [percentage]);
 
   return (
-    <section className='w-full flex items-center justify-center'>
+    <motion.section
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
+      transition={{
+        duration: 0.8,
+        ease: 'circInOut',
+        type: 'spring',
+        delay: 0.4,
+      }}
+      exit={{ scale: 0 }}
+      className='w-full flex items-center justify-center'
+    >
       {/* 1 */}
       <div
         className={`w-[380px]
@@ -222,6 +234,6 @@ export default function LevelUp() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

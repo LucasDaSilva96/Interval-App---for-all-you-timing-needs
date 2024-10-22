@@ -5,6 +5,7 @@ import { useSelectedViewStore } from '../stores/selectedView.store';
 import { useTimerStore } from '../stores/timer.store';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export default function IntervalPage() {
   const { isDone, isRunning, time, startBreakTimer, stopTimer, setIsDone } =
@@ -20,7 +21,7 @@ export default function IntervalPage() {
 
   useEffect(() => {
     stopTimer();
-    startBreakTimer(5);
+    startBreakTimer(1);
   }, []);
 
   useEffect(() => {
@@ -36,7 +37,12 @@ export default function IntervalPage() {
   }, [isDone, startTimer, startValue, stopTimer, navigate, selectedView]);
 
   return (
-    <section className='w-full h-screen bg-black overflow-clip relative flex flex-col items-center justify-center'>
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 0.5 } }}
+      exit={{ opacity: 0 }}
+      className='w-full h-screen bg-black overflow-clip relative flex flex-col items-center justify-center'
+    >
       <CirclesBg animate={isRunning} />
       <div className='absolute w-full inset-0 z-10 flex flex-col items-center justify-center gap-4'>
         <CiPause1 size={64} className='text-white' />
@@ -49,6 +55,6 @@ export default function IntervalPage() {
           NO PAUSE, GO NOW!
         </button>
       </div>
-    </section>
+    </motion.section>
   );
 }

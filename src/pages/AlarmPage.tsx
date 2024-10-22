@@ -3,6 +3,7 @@ import CirclesBg from '../components/CirclesBg';
 import { PiBellSimpleRinging } from 'react-icons/pi';
 import { useTimerStore } from '../stores/timer.store';
 import { useBreakStore } from '../stores/break.store';
+import { motion } from 'framer-motion';
 
 export default function AlarmPage() {
   const navigate = useNavigate();
@@ -16,7 +17,12 @@ export default function AlarmPage() {
   };
 
   return (
-    <section className='w-full h-screen bg-black overflow-clip relative flex flex-col items-center justify-center'>
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 0.5 } }}
+      exit={{ opacity: 0 }}
+      className='w-full h-screen bg-black overflow-clip relative flex flex-col items-center justify-center'
+    >
       <CirclesBg />
       <div className='absolute w-full inset-0 z-10 flex flex-col items-center justify-center gap-4'>
         <PiBellSimpleRinging size={64} className='text-white animate-bounce' />
@@ -28,6 +34,6 @@ export default function AlarmPage() {
           SET NEW timer
         </button>
       </div>
-    </section>
+    </motion.section>
   );
 }

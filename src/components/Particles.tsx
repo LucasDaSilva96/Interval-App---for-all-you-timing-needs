@@ -25,7 +25,7 @@ export default function ParticlesComponent() {
       autoPlay: true,
       background: {
         color: {
-          value: '#333333',
+          value: '#000',
         },
         image: '',
         position: '',
