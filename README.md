@@ -112,3 +112,9 @@ By incorporating these principles, I aimed to create a more engaging and intuiti
   ```sh
   npm run lint
   ```
+
+## License
+
+This project is licensed under the MIT License.
+
+[LICENSE](https://github.com/LucasDaSilva96/Interval-App---for-all-you-timing-needs/blob/main/LICENSE)
