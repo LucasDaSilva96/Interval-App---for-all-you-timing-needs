@@ -2,6 +2,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 import { useTimerSettingsStore } from '../stores/timerSettings.store';
 import { motion } from 'framer-motion';
 
+// This component is used to select the minutes for the timer
 export default function SelectMinutes() {
   const { decrement, increment, minutes } = useTimerSettingsStore();
 

@@ -12,11 +12,12 @@ interface TimerBreakState {
   secondsLeft: number;
   isRunning: boolean;
   isDone: boolean;
-  startBreakTimer: (duration: number) => void;
+  startBreakTimer: () => void;
   stopTimer: () => void;
   setIsDone: (value: boolean) => void;
 }
 
+// This is the store for the break timer
 export const useBreakStore = create<TimerBreakState>((set) => ({
   time: '05:00',
   startValue: 5,
@@ -24,11 +25,12 @@ export const useBreakStore = create<TimerBreakState>((set) => ({
   minutesLeft: 0,
   secondsLeft: 0,
   isDone: false,
-  startBreakTimer: (duration: number) => {
-    set({ startValue: duration, isRunning: true, isDone: false });
+  // Start a 5 minute break timer
+  startBreakTimer: () => {
+    set({ startValue: 5, isRunning: true, isDone: false });
     timer.start({
       countdown: true,
-      startValues: { minutes: duration, seconds: 0 },
+      startValues: { minutes: 5, seconds: 0 },
     });
     timer.addEventListener('secondsUpdated', () => {
       set({

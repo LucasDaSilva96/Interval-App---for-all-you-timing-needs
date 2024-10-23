@@ -1,120 +1,12 @@
-import { useEffect, useState } from 'react';
 import { useTimerStore } from '../../stores/timer.store';
 import { calTimeProgress } from '../../services/calcProgress';
 import { motion } from 'framer-motion';
-
-const initialState = {
-  ring_1: false,
-  ring_2: false,
-  ring_3: false,
-  ring_4: false,
-  ring_5: false,
-  ring_6: false,
-  ring_7: false,
-  ring_8: false,
-  ring_9: false,
-  ring_10: false,
-};
+import { useLevelUpAnimation } from '../../hooks/useLevelUpAnimation';
 
 export default function LevelUp() {
   const { startValue, minutesLeft, secondsLeft, isRunning } = useTimerStore();
-  const [progress, setProgress] = useState(initialState);
-
-  const [percentage, setPercentage] = useState(0);
-
-  useEffect(() => {
-    setPercentage(calTimeProgress(minutesLeft, secondsLeft, startValue));
-  }, [minutesLeft, secondsLeft, startValue]);
-
-  // TODO - fix the progress when the timer is reset or renewed
-  useEffect(() => {
-    if (percentage === 100) return;
-    if (percentage <= 10) {
-      setProgress({ ...progress, ring_1: true });
-    } else if (percentage <= 20) {
-      setProgress({ ...progress, ring_1: true, ring_2: true });
-    } else if (percentage <= 30) {
-      setProgress({ ...progress, ring_1: true, ring_2: true, ring_3: true });
-    } else if (percentage <= 40) {
-      setProgress({
-        ...progress,
-        ring_1: true,
-        ring_2: true,
-        ring_3: true,
-        ring_4: true,
-      });
-    } else if (percentage <= 50) {
-      setProgress({
-        ...progress,
-        ring_1: true,
-        ring_2: true,
-        ring_3: true,
-        ring_4: true,
-        ring_5: true,
-      });
-    } else if (percentage <= 60) {
-      setProgress({
-        ...progress,
-        ring_1: true,
-        ring_2: true,
-        ring_3: true,
-        ring_4: true,
-        ring_5: true,
-        ring_6: true,
-      });
-    } else if (percentage <= 70) {
-      setProgress({
-        ...progress,
-        ring_1: true,
-        ring_2: true,
-        ring_3: true,
-        ring_4: true,
-        ring_5: true,
-        ring_6: true,
-        ring_7: true,
-      });
-    } else if (percentage <= 80) {
-      setProgress({
-        ...progress,
-        ring_1: true,
-        ring_2: true,
-        ring_3: true,
-        ring_4: true,
-        ring_5: true,
-        ring_6: true,
-        ring_7: true,
-        ring_8: true,
-      });
-    } else if (percentage <= 90) {
-      setProgress({
-        ...progress,
-        ring_1: true,
-        ring_2: true,
-        ring_3: true,
-        ring_4: true,
-        ring_5: true,
-        ring_6: true,
-        ring_7: true,
-        ring_8: true,
-        ring_9: true,
-      });
-    } else if (percentage <= 100) {
-      setProgress({
-        ...progress,
-        ring_1: true,
-        ring_2: true,
-        ring_3: true,
-        ring_4: true,
-        ring_5: true,
-        ring_6: true,
-        ring_7: true,
-        ring_8: true,
-        ring_9: true,
-        ring_10: true,
-      });
-    }
-  }, [percentage]);
-
+  // Custom hook to handle level up animation
+  const { progress } = useLevelUpAnimation();
   return (
     <motion.section
       initial={{ scale: 0 }}

@@ -5,6 +5,7 @@ import { useTimerSettingsStore } from '../stores/timerSettings.store';
 import { AnimatePresence, motion } from 'framer-motion';
 import SelectMinutes from './SelectTime';
 
+// This component is used to set the timer settings, minutes, intervals, and breaks
 export default function TimerSettings() {
   const {
     hasBreak,

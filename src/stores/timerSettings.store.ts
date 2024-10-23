@@ -18,7 +18,7 @@ type Action = {
 
 // This is a store that manages the timer settings in the main app page.
 export const useTimerSettingsStore = create<State & Action>((set) => ({
-  minutes: 1,
+  minutes: 5,
   hasInterval: false,
   hasBreak: false,
   interval_rounds: 0,

@@ -1,45 +1,26 @@
 import CirclesBg from '../components/CirclesBg';
 import { CiPause1 } from 'react-icons/ci';
 import { useBreakStore } from '../stores/break.store';
-import { useSelectedViewStore } from '../stores/selectedView.store';
-import { useTimerStore } from '../stores/timer.store';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useBreak } from '../hooks/useBreak';
 
 export default function IntervalPage() {
-  const { isDone, isRunning, time, startBreakTimer, stopTimer, setIsDone } =
-    useBreakStore();
-  const { selectedView } = useSelectedViewStore();
-  const { startTimer, startValue } = useTimerStore();
-
-  const navigate = useNavigate();
+  const { isRunning, time, setIsDone } = useBreakStore();
 
   const handleClick = () => {
     setIsDone(true);
   };
 
-  useEffect(() => {
-    stopTimer();
-    startBreakTimer(1);
-  }, []);
-
-  useEffect(() => {
-    if (isDone) {
-      stopTimer();
-
-      startTimer(startValue);
-
-      setTimeout(() => {
-        return navigate(selectedView);
-      }, 300);
-    }
-  }, [isDone, startTimer, startValue, stopTimer, navigate, selectedView]);
+  // This hook starts the break timer and navigates back to the selected view after the break timer is done
+  useBreak();
 
   return (
     <motion.section
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 0.5 } }}
+      animate={{
+        opacity: 1,
+        transition: { duration: 0.8, ease: 'easeInOut', type: 'spring' },
+      }}
       exit={{ opacity: 0 }}
       className='w-full h-screen bg-black overflow-clip relative flex flex-col items-center justify-center'
     >

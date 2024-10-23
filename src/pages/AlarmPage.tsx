@@ -19,7 +19,10 @@ export default function AlarmPage() {
   return (
     <motion.section
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 0.5 } }}
+      animate={{
+        opacity: 1,
+        transition: { duration: 0.8, ease: 'easeInOut', type: 'spring' },
+      }}
       exit={{ opacity: 0 }}
       className='w-full h-screen bg-black overflow-clip relative flex flex-col items-center justify-center'
     >

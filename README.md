@@ -1,63 +1,114 @@
-# Individuell examination: Interval App - for all you timing needs || Lucas Da Silva
+# Interval App
 
-## Bakgrund
+## Overview
 
-Förmågan att mäta tid är väldigt användbart. Från träning till studier är en bra timer guld värd.
+The Interval App is a React-based application designed to help users manage their time effectively through various timers and interval settings. The app leverages modern web technologies such as TypeScript, Zustand for state management, and Framer Motion for animations.
 
-Några användningsområden för en bra tidtagar-app är:
+[!preview image](/public/images/Interval-app.png)
 
-- [Timeboxing](https://medium.com/dreimannzelt-adventures/7-secrets-to-master-timeboxing-66a744ea9175)
-- [Pomondoro metoden](https://www.metodbanken.se/post/pomodorometoden)
-- [Parprogrammering](https://sv.wikipedia.org/wiki/Parprogrammering)
+## Features
 
-## Uppdragsbeskrivning
+### Timers
 
-Ert uppdrag är att skapa en ultimata tidtagar-webbappen för mobiler. Den är enkel till sin funktion, men kan visa tid på flera olika sätt, se vybeskrivningar samt screens nedan.
+- **Analog Timer**: A classic analog clock interface.
+- **Digital Timer**: A digital display for precise time tracking.
+- **Visual Timer**: A graphical representation of time.
+- **Level Up Timer**: A timer with level-up animations to motivate users.
 
-Viss remix av utseende får göras, ex. lägga till färger, ändra fonter etc, dock skall funktionalitet vara densamma.
+### Pages
 
-## Funktionella krav
+- **Loading Page**: Initial loading screen.
+- **Set Timer Page**: Interface to set and customize timers.
+- **Timer Page**: Main page to display and interact with timers.
+- **Alarm Page**: Page to manage and set alarms.
+- **Interval Page**: Page to configure and manage interval settings.
+- **404 Not Found Page**: Custom 404 page for unmatched routes.
 
-| Vy                | Beskrivning                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| loading           | en loading screen där endast logotyp samt slogan finns med. Du kommer vidare till _Set Timer_ genom att klicka på logotypen.                                                                                                                                                                                                                                                                                                             |
-| set timer         | Här ställer du in hur många minuter timern skall gå. **OBS! VG krav** Du anger också om timern ska gå i intervaller, d.v.s. starta om efter den nått 0. Valet att även lägga in en 5 minuters pause mellan varje intervall finns. Detta är väldigt användbart i ex. studiesyfte med [pomondoro metoden](https://www.metodbanken.se/post/pomodorometoden) alt. när man [parprogrammerar](https://sv.wikipedia.org/wiki/Parprogrammering). |
-| analog timer      | Här visas tiden med en analog urtavla där minut samt sekundvisaren rör sig. En knapp för att avbryta nuvarande timer och återgå till _set timer_ skall finnas.                                                                                                                                                                                                                                                                           |
-| digital timer     | Här visas tiden med en digital klocka som uppdateras varje sekund. En knapp för att avbryta nuvarande timer och återgå till _set timer_ skall finnas.                                                                                                                                                                                                                                                                                    |
-| alarmvy           | Denna vy visas när tiden är ute. En knapp för att gå till _set timer_ skall finnas.                                                                                                                                                                                                                                                                                                                                                      |
-| text timer **VG** | Visa tiden med hjälp av skriven text.                                                                                                                                                                                                                                                                                                                                                                                                    |
+### State Management
 
-På samtliga timervyer skall en _meny-ikon_ i hörnet visa en meny där användaren ska kunna växla mellan olika timer-vyer. Notera att dessa byten inte skall avbryta eller nollställa timern.
+- **Navigation State**: Managed using Zustand in [`src/stores/nav.store.ts`](src/stores/nav.store.ts).
+- **Timer State**: Managed using Zustand in [`src/stores/timer.store.ts`](src/stores/timer.store.ts).
 
-En interaktiv mockup hittar ni [här](https://www.figma.com/proto/AerBB2Yx3IiT9iL8U8akVR/Interval-app-1.0?node-id=23%3A176&scaling=scale-down&page-id=23%3A3).
+### Custom Hooks
 
-Figma filen hittar du [här](https://www.figma.com/file/AerBB2Yx3IiT9iL8U8akVR/Interval-app-1.0).
+- **useBreak**: Custom hook for break management in [`src/hooks/useBreak.ts`](src/hooks/useBreak.ts).
+- **useIntervalAndBreak**: Custom hook for managing intervals and breaks in [`src/hooks/useIntervalAndBreak.ts`](src/hooks/useIntervalAndBreak.ts).
+- **useLevelUpAnimation**: Custom hook for handling level-up animations in [`src/hooks/useLevelUpAnimation.ts`](src/hooks/useLevelUpAnimation.ts).
+- **useCalcDeg**: Custom hook for calculating the rotation of the minutes and seconds hands on the analog clock [`src/hooks/useCalcDeg.ts`](src/hooks/useCalcDeg.ts)
 
-## Tekniska krav
+## Animations
 
-- Att jobba med tid i programmering kan snabbt bli väldigt komplext. Därför är det högst rekomenderat att använda ett bibliotek som underlättar just detta. Ex. [EasyTimer.js av Albert Gonzalez](https://albert-gonzalez.github.io/easytimer.js/).
-- Gjord i antingen React med framer motion **eller** html, css och vanilla JS med anime.js.
-- Använder sig av någon CSS animering (transitions eller keyframes).
+### Animation Principles
 
-## Betygskriterier
+In this project, I applied the 12 Principles of Animation to enhance the user experience and make the interactions more engaging. Here’s how each principle was utilized:
 
-**För Godkänt:**
+1. **Squash and Stretch**: Used in the Level Up Timer animations to give a sense of weight and flexibility when the timer reaches a new level.
+2. **Anticipation**: Implemented in the button animations to prepare the user for the upcoming action, such as starting or stopping the timer.
+3. **Staging**: Ensured that the most important elements, like the active timer, are prominently displayed and easy to interact with.
+4. **Straight Ahead Action and Pose to Pose**: Combined both techniques in the visual timer animations to create fluid and dynamic movements.
+5. **Follow Through and Overlapping Action**: Applied to the timer hands in the Analog Timer to create a more natural and realistic motion.
+6. **Slow In and Slow Out**: Used in the transitions between different pages and states to make the animations feel more organic.
+7. **Arc**: Incorporated in the movement of the timer hands and other animated elements to create more natural motion paths.
+8. **Secondary Action**: Added subtle animations to background elements and secondary UI components to support the main action without distracting from it.
+9. **Timing**: Carefully adjusted the timing of all animations to ensure they feel smooth and responsive.
+10. **Exaggeration**: Used in the Level Up Timer animations to emphasize the achievement of reaching a new level.
+11. **Solid Drawing**: Ensured that all animated elements maintain their volume and consistency throughout the animations.
+12. **Appeal**: Focused on creating visually appealing animations that enhance the overall user experience and make the app enjoyable to use.
 
-- Uppfyller alla funktionella och tekniska krav.
+By incorporating these principles, I aimed to create a more engaging and intuitive user experience that leverages the power of animation to communicate effectively and delight users.
 
-**För Väl Godkänt:**
+#### Animation - Highlight
 
-- Har implementerat vyn för "text timer".
-- Har implementerat funktionaliteten för intervaller.
+- **Framer Motion**: Used for smooth animations and transitions in components like [`LevelUpTimer`](src/components/Timers/LevelUpTimer.tsx).
 
-## Inlämning
+### Configuration
 
-Inlämning sker på Azomo med en länk till ditt Github repo med din kod senast 25/10 23:59.
+- **Vite**: Fast build tool configured in [`vite.config.ts`](vite.config.ts).
+- **ESLint**: Linting configured in [`eslint.config.js`](eslint.config.js).
+- **Tailwind CSS**: Utility-first CSS framework configured in [`tailwind.config.js`](tailwind.config.js).
 
-## Muntlig redovisning
+## Getting Started
 
-Denna kurs har en obligatorisk muntlig redovisning som sker på fredagen 25/10. Den kommer ske i grupper av cirka 10 personer. I tre omgångar:
+### Prerequisites
 
-- Kl 13-14
-- kl 14-15
-- kl 15-16
+- Node.js
+- npm
+
+### Installation
+
+1. Clone the repository:
+
+   ```sh
+   git clone https://github.com/LucasDaSilva96/Interval-App---for-all-you-timing-needs.git
+   cd INTERVAL-APP
+   ```
+
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+
+### Running the App
+
+- **Development Mode**:
+
+  ```sh
+  npm run dev
+  ```
+
+- **Build**:
+
+  ```sh
+  npm run build
+  ```
+
+- **Preview**:
+
+  ```sh
+  npm run preview
+  ```
+
+- **Lint**:
+  ```sh
+  npm run lint
+  ```

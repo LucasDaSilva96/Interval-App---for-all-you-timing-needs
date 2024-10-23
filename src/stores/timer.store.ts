@@ -21,6 +21,7 @@ export interface TimerState {
   resumeTimer: () => void;
 }
 
+// This is the store for the main-timer. It uses the easytimer.js library to handle the timer logic
 export const useTimerStore = create<TimerState>((set) => ({
   time: '00:00',
   startValue: 0,

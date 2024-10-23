@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useNavStore } from '../stores/nav.store';
 import { RiMenuFold4Fill, RiMenuFold3Fill } from 'react-icons/ri';
 import { CiPause1, CiPlay1 } from 'react-icons/ci';
@@ -9,24 +9,15 @@ import { useTimerSettingsStore } from '../stores/timerSettings.store';
 import { stagger } from 'framer-motion';
 import { animate } from 'framer-motion/dom';
 import { useEffect } from 'react';
+import { useIntervalAndBreak } from '../hooks/useIntervalAndBreak';
 
 export default function Nav() {
   const { setSelectedView } = useSelectedViewStore();
   const { isNavOpen, toggleNav } = useNavStore();
-  const {
-    isPaused,
-    pauseTimer,
-    resumeTimer,
-    isDone,
-    stopTimer,
-    startValue,
-    startTimer,
-  } = useTimerStore();
-  const { hasBreak, hasInterval, interval_rounds, incrementIntervalRound } =
-    useTimerSettingsStore();
+  const { isPaused, pauseTimer, resumeTimer, isDone } = useTimerStore();
+  const { hasInterval, interval_rounds } = useTimerSettingsStore();
 
-  const navigate = useNavigate();
-
+  // This function handles the view change, saves the selected view to the store, and closes the nav
   const handleViewChange = (
     view: '/timer' | '/timer/digital' | '/timer/visual' | '/timer/levelUp'
   ) => {
@@ -34,6 +25,7 @@ export default function Nav() {
     toggleNav();
   };
 
+  // This useEffect animates the nav links
   useEffect(() => {
     const elements = document.querySelectorAll<HTMLAnchorElement>('.nav-link');
     if (!elements) return;
@@ -64,25 +56,8 @@ export default function Nav() {
     })();
   }, [isNavOpen]);
 
-  // TODO - Refactor this to a custom hook
-  useEffect(() => {
-    if (isDone) {
-      if (hasInterval) {
-        incrementIntervalRound();
-        stopTimer();
-        if (!hasBreak) {
-          startTimer(startValue);
-        }
-        if (hasBreak) {
-          setTimeout(() => {
-            return navigate('/interval');
-          }, 300);
-        }
-      } else {
-        return navigate('/alarm');
-      }
-    }
-  }, [isDone, hasInterval, hasBreak]);
+  // Custom hook to handle interval and break
+  useIntervalAndBreak();
 
   return (
     <div className='z-50'>
