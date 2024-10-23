@@ -10,6 +10,10 @@ import { stagger } from 'framer-motion';
 import { animate } from 'framer-motion/dom';
 import { useEffect } from 'react';
 import { useIntervalAndBreak } from '../hooks/useIntervalAndBreak';
+import { IoMdClock } from 'react-icons/io';
+import { MdOutlineTimer10Select } from 'react-icons/md';
+import { IoTextSharp } from 'react-icons/io5';
+import { GiAbstract083 } from 'react-icons/gi';
 
 export default function Nav() {
   const { setSelectedView } = useSelectedViewStore();
@@ -116,32 +120,36 @@ export default function Nav() {
       >
         <div className='w-full flex flex-col text-xl font-semibold items-center justify-center gap-12'>
           <Link
-            className='nav-link md:hover:underline active:underline'
+            className='nav-link md:hover:underline active:underline flex items-center gap-2 min-w-[200px] justify-between'
             onClick={() => handleViewChange('/timer')}
             to='/timer'
           >
-            ANALOG TIMER
+            <span>ANALOG TIMER</span>
+            <IoMdClock size={28} />
           </Link>
           <Link
-            className='nav-link md:hover:underline active:underline'
+            className='nav-link md:hover:underline active:underline flex items-center gap-2 min-w-[200px] justify-between'
             onClick={() => handleViewChange('/timer/digital')}
             to='digital'
           >
-            DIGITAL TIMER
+            <span>DIGITAL TIMER</span>
+            <MdOutlineTimer10Select size={28} />
           </Link>
           <Link
-            className='nav-link md:hover:underline active:underline'
+            className='nav-link md:hover:underline active:underline flex items-center gap-2 min-w-[200px] justify-between'
             onClick={() => handleViewChange('/timer/visual')}
             to='visual'
           >
-            VISUAL TIMER
+            <span>VISUAL TIMER</span>
+            <IoTextSharp size={28} />
           </Link>
           <Link
-            className='nav-link md:hover:underline active:underline'
+            className='nav-link md:hover:underline active:underline flex items-center gap-2 min-w-[200px] justify-between'
             onClick={() => handleViewChange('/timer/levelUp')}
             to='levelUp'
           >
-            CIRCLES
+            <span>CIRCLES</span>
+            <GiAbstract083 size={28} />
           </Link>
         </div>
       </aside>
