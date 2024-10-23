@@ -1,5 +1,7 @@
 # Interval App
 
+[www.timerApp.io](https://interval-app-for-all-you-timing-needs.vercel.app/)
+
 ## Overview
 
 The Interval App is a React-based application designed to help users manage their time effectively through various timers and interval settings. The app leverages modern web technologies such as TypeScript, Zustand for state management, and Framer Motion for animations.
