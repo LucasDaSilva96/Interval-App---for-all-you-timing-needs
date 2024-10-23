@@ -7,6 +7,7 @@ export default function SelectMinutes() {
   const { decrement, increment, minutes } = useTimerSettingsStore();
 
   const handleIncrement = () => {
+    if(minutes === 60) return;
     increment();
   };
 
