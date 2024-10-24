@@ -10,14 +10,14 @@ body {
 }
 
 .clock {
-  background: #ececec;
+  background: #c2c4c4;
   width: 370px;
   height: 370px;
   margin: 8% auto 0;
   border-radius: 50%;
-  border: 14px solid #333;
+  border: 14px solid #a37d2c;
   position: relative;
-  box-shadow: 0 1vw 6vw -1vw rgba(146, 146, 146, 0.507);
+  box-shadow: #505050a9 0px 0px 15px;
 }
 
 .dot {
@@ -25,7 +25,7 @@ body {
   height: 14px;
   border: 1px solid #333;
   border-radius: 50%;
-  background: gold;
+  background: #a37e2c;
   top: 0;
   left: 0;
   right: 0;
@@ -42,13 +42,13 @@ body {
   z-index: 6;
   width: 4px;
   height: 122px;
-  background: #666;
+  background: #000000;
   top: 46px;
   left: 50%;
   margin-left: -2.3px;
   border-top-left-radius: 50%;
   border-top-right-radius: 50%;
-  transform-origin: 50% 120px;
+  transform-origin: 50% 124px;
 }
 
 .second-hand {
@@ -56,22 +56,22 @@ body {
   z-index: 7;
   width: 2px;
   height: 120px;
-  background: gold;
+  background: #a37e2c;
   top: 44px;
   left: 50%;
   margin-left: -1px;
   border-top-left-radius: 50%;
   border-top-right-radius: 50%;
-  transform-origin: 50% 125px;
+  transform-origin: 50% 128px;
 }
 
 
 .diallines {
   position: absolute;
   z-index: 2;
-  width: 2px;
-  height: 15px;
-  background: #666;
+  width: 1px;
+  height: 7px;
+  background: #0000007a;
   left: 50%;
   margin-left: -1px;
   transform-origin: 50% 170px;
@@ -80,11 +80,12 @@ body {
 .diallines:nth-of-type(5n) {
   position: absolute;
   z-index: 2;
-  width: 4px;
+  width: 8px;
   height: 25px;
-  background: #666;
+  background: #ffffff;
+  border: 1px solid #a37e2c;
   left: 50%;
-  margin-left: -1px;
+  margin-left: -4px;
   transform-origin: 50% 170px;
 }
 
@@ -94,7 +95,7 @@ body {
   height: 27px;
   border-radius: 4px;
   text-align: center;
-  color: #000;
+  color: #000000;
   font-size: 11px;
   top: 156px;
   right: 17%;
@@ -102,7 +103,7 @@ body {
   font-weight: 700;
   z-index: 3;
   letter-spacing: 3px;
-  background-color: rgba(255, 255, 255, 0.979);
+  background-color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
