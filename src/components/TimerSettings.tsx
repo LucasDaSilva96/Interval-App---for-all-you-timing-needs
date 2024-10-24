@@ -65,7 +65,7 @@ export default function TimerSettings() {
         </div>
 
         <AnimatePresence mode='wait'>
-          {hasInterval && (
+          {hasInterval ? (
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -83,6 +83,8 @@ export default function TimerSettings() {
               />
               <label htmlFor='break'>5 min break / interval</label>
             </motion.div>
+          ) : (
+            <div className='w-[225px] h-[28px]' />
           )}
         </AnimatePresence>
       </motion.div>
