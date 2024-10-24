@@ -19,7 +19,7 @@ export default function Analog() {
       for (let index = 0; index < 60; index++) {
         const element = document.createElement('div');
         element.classList.add('diallines');
-        element.style.transform = `rotate(${index * 6}deg)`;
+        element.style.transform = `rotate(${index * 6.1}deg)`;
         clockEl.current.appendChild(element);
       }
       setHasCreatedDialLines(true);
@@ -52,13 +52,10 @@ export default function Analog() {
         <div className={`minute-hand`} ref={minuteHandEl}></div>
         <div className={`second-hand`} ref={secondHandEl}></div>
       </div>
-      <div>
-        <span className='h3 span'></span>
-        <span className='h6 span'></span>
-        <span className='h9 span'></span>
-        <span className='h12 span'></span>
-      </div>
       <div className='diallines'></div>
+      <div className='clockDate'>
+        <span className='text-sm'>{new Date().getDate()}</span>
+      </div>
     </div>
   );
 }
