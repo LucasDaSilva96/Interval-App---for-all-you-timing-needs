@@ -1,6 +1,6 @@
 # Interval App
 
-[www.timerApp.io](https://interval-app-for-all-you-timing-needs.vercel.app/)
+🌐[www.timerApp.io](https://interval-app-for-all-you-timing-needs.vercel.app/)
 
 ## Overview
 
